@@ -32,15 +32,15 @@ export default function VehiclesPage() {
         </div>
       </section>
 
-      <section className="py-12 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <Tabs defaultValue="cars" className="w-full">
+      <section className="py-12 px-4 sm:px-6 lg:px-8 bg-white ">
+        <div className="max-w-7xl mx-auto py-4">
+          <Tabs defaultValue="all" className="w-full">
             <TabsList className="w-full justify-center mb-8">
-              <TabsTrigger value="all">All</TabsTrigger>
-              <TabsTrigger value="cars">Cars</TabsTrigger>
-              <TabsTrigger value="luxury">Luxury Vehicles</TabsTrigger>
-              <TabsTrigger value="tempo">Tempo Travellers</TabsTrigger>
-              <TabsTrigger value="bus">Buses</TabsTrigger>
+              <TabsTrigger className="py-2" value="all">All Vehicles</TabsTrigger>
+              <TabsTrigger className="py-2" value="cars">Cars</TabsTrigger>
+              <TabsTrigger className="py-2" value="luxury">Luxury Vehicles</TabsTrigger>
+              <TabsTrigger className="py-2" value="tempo">Tempo Travellers</TabsTrigger>
+              <TabsTrigger className="py-2" value="bus">Buses</TabsTrigger>
             </TabsList>
 
             {Object.entries(vehicleData).map(([category, vehicles]) => {
@@ -52,7 +52,7 @@ export default function VehiclesPage() {
                     {vehicles.map((vehicle) => (
                       <Card
                         key={vehicle.id}
-                        className="overflow-hidden hover:shadow-lg transition-shadow"
+                        className="overflow-hidden border-[#eee] hover:border-[#eee] hover:shadow-xl transition-shadow"
                       >
                         <div className="relative h-48 w-full">
                           <Image

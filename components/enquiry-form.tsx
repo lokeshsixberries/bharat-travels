@@ -9,15 +9,79 @@ import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Calendar } from "lucide-react"
 import { Card } from "@/components/ui/card"
+import {supabase} from "@/lib/supabase/client"
+import { useToast } from "@/components/ui/use-toast"
 
 export function EnquiryForm({ destinationName = "" }: { destinationName?: string }) {
-  const [formSubmitted, setFormSubmitted] = useState(false)
+  const { toast } = useToast()
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+    
+interface EnquiryFormData {
+  name: string;
+  email: string;
+  phone: string;
+  people: string;
+  date: string;
+  duration: string;
+  destination: string;
+  message: string;
+  enquiry_date: string;
+  enquiry_time: string;
+}
 
-  const handleSubmit = (e: React.FormEvent) => {
+    const [state, setState] = useState<EnquiryFormData>({
+      name: "",
+      email: "",
+      phone: "",
+      people: "",
+      date: "",
+      duration: "",
+      destination: destinationName,
+      message: "",
+      enquiry_date: new Date().toISOString().split("T")[0],
+      enquiry_time: new Date().toTimeString().split(" ")[0],
+    });
+  
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // In a real application, you would handle the form submission here
-    // For now, we'll just show a success message
-    setFormSubmitted(true)
+    setLoading(true);
+    try {
+      const { data, error } = await supabase
+        .from('Enquiry')
+        .insert({
+          ...state,
+        })
+        
+      if (error) {
+        throw error
+      }
+
+      await fetch("https://api.telegram.org/bot8212234180:AAF5grR8Y368lRXiscxzsj3SYBKj11dW8bU/sendMessage", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          chat_id: "1060120862",
+          text: `New Enquiry from ${state.name}\n\nName: ${state.name}\nEmail: ${state.email}\nPhone: ${state.phone}\nPeople: ${state.people}\nDate: ${state.date}\nDuration: ${state.duration}\nDestination: ${state.destination}\nMessage: ${state.message}`,
+        }),
+      })
+
+      toast({
+        title: "Message sent successfully!",
+        description: "We'll get back to you as soon as possible.",
+      })
+      setFormSubmitted(true)
+    } catch (error) {
+      toast({
+        title: "Error submitting form",
+        description: error instanceof Error ? error.message : "An unknown error occurred",
+        variant: "destructive",
+      })
+    } finally {
+      setLoading(false)
+    }
   }
 
   if (formSubmitted) {
@@ -51,21 +115,21 @@ export function EnquiryForm({ destinationName = "" }: { destinationName?: string
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form className="space-y-4">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <Input placeholder="Full Name *" required />
+          <Input placeholder="Full Name *" required onChange={(e) => setState({ ...state, name: e.target.value })} value={state.name} />
         </div>
         <div>
-          <Input type="email" placeholder="Email Address *" required />
+          <Input type="email" placeholder="Email Address *" required onChange={(e) => setState({ ...state, email: e.target.value })} value={state.email}/>
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <Input type="tel" placeholder="Phone Number *" required />
+          <Input type="tel" placeholder="Phone Number *" required onChange={(e) => setState({ ...state, phone: e.target.value })} value={state.phone}/>
         </div>
         <div>
-          <Select>
+          <Select onValueChange={(value) => setState({ ...state, people: value })} value={state.people}>
             <SelectTrigger>
               <SelectValue placeholder="Number of Travelers" />
             </SelectTrigger>
@@ -80,11 +144,11 @@ export function EnquiryForm({ destinationName = "" }: { destinationName?: string
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="relative">
-          <Input type="date" placeholder="Travel Date" className="pl-10" />
+          <Input type="date" placeholder="Travel Date" className="pl-10" required onChange={(e) => setState({ ...state, date: e.target.value })} value={state.date}/>
           <Calendar className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
         </div>
         <div>
-          <Select>
+          <Select onValueChange={(value) => setState({ ...state, duration: value })} value={state.duration}>
             <SelectTrigger>
               <SelectValue placeholder="Trip Duration" />
             </SelectTrigger>
@@ -99,6 +163,7 @@ export function EnquiryForm({ destinationName = "" }: { destinationName?: string
       </div>
       <div>
         <Input
+          required
           placeholder="Destination"
           defaultValue={destinationName}
           className={destinationName ? "bg-gray-50" : ""}
@@ -107,12 +172,15 @@ export function EnquiryForm({ destinationName = "" }: { destinationName?: string
       </div>
       <div>
         <Textarea
+          required
           placeholder="Tell us about your requirements (vehicle preferences, places to visit, etc.)"
           className="min-h-[120px]"
+          onChange={(e) => setState({ ...state, message: e.target.value })}
+          value={state.message}
         />
       </div>
-      <Button type="submit" className="w-full">
-        Submit Enquiry
+      <Button disabled={loading}  type="button" className="w-full" onClick={handleSubmit}>
+       {loading ? "Submitting..." : "Submit Enquiry"}
       </Button>
     </form>
   )

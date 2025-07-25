@@ -1,21 +1,68 @@
 "use client"
 
-import type React from "react"
-
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { supabase } from "@/lib/supabase/client"
+import { useToast } from "@/components/ui/use-toast"
+
+interface ContactFormData {
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
+  subject: string;
+  enquiry_date: string;
+  enquiry_time: string;
+}
 
 export function ContactForm() {
+  const { toast } = useToast()
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [formSubmitted, setFormSubmitted] = useState(false)
+  const [state, setState] = useState<ContactFormData>({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+    subject: "",
+    enquiry_date: new Date().toISOString().split('T')[0],
+    enquiry_time: new Date().toTimeString().split(' ')[0],
+  })
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // In a real application, you would handle the form submission here
-    // For now, we'll just show a success message
-    setFormSubmitted(true)
+    setIsSubmitting(true)
+    
+    try {
+      const { data, error } = await supabase
+        .from('Contact')
+        .insert({
+          ...state,
+          enquiry_date: new Date().toISOString().split('T')[0],
+          enquiry_time: new Date().toTimeString().split(' ')[0]
+        })
+        
+      if (error) {
+        throw error
+      }
+
+      toast({
+        title: "Message sent successfully!",
+        description: "We'll get back to you as soon as possible.",
+      })
+      setFormSubmitted(true)
+    } catch (error) {
+      toast({
+        title: "Error submitting form",
+        description: error instanceof Error ? error.message : "An unknown error occurred",
+        variant: "destructive",
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   if (formSubmitted) {
@@ -50,35 +97,67 @@ export function ContactForm() {
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <Input placeholder="Full Name *" required />
+          <Input 
+            value={state.name}
+            placeholder="Full Name *" 
+            required 
+            onChange={(e) => setState({ ...state, name: e.target.value })}
+          />
         </div>
         <div>
-          <Input type="email" placeholder="Email Address *" required />
+          <Input 
+            type="email" 
+            value={state.email} 
+            placeholder="Email Address *" 
+            required 
+            onChange={(e) => setState({ ...state, email: e.target.value })}
+          />
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <Input type="tel" placeholder="Phone Number *" required />
+          <Input 
+            type="tel" 
+            value={state.phone} 
+            placeholder="Phone Number *" 
+            required 
+            onChange={(e) => setState({ ...state, phone: e.target.value })}
+          />
         </div>
         <div>
-          <Select>
+          <Select 
+            value={state.subject} 
+            onValueChange={(value) => setState({ ...state, subject: value })}
+            required
+          >
             <SelectTrigger>
-              <SelectValue placeholder="Subject" />
+              <SelectValue placeholder="Select a subject *" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="general">General Inquiry</SelectItem>
               <SelectItem value="booking">Booking Information</SelectItem>
               <SelectItem value="support">Customer Support</SelectItem>
               <SelectItem value="feedback">Feedback</SelectItem>
+              <SelectItem value="other">Other</SelectItem>
             </SelectContent>
           </Select>
         </div>
       </div>
       <div>
-        <Textarea placeholder="Your Message *" className="min-h-[150px]" required />
+        <Textarea 
+          value={state.message}
+          onChange={(e) => setState({ ...state, message: e.target.value })} 
+          placeholder="Your Message *" 
+          className="min-h-[150px]" 
+          required 
+        />
       </div>
-      <Button type="submit" className="w-full">
-        Send Message
+      <Button 
+        type="submit" 
+        className="w-full"
+        disabled={isSubmitting}
+      >
+        {isSubmitting ? "Sending..." : "Send Message"}
       </Button>
     </form>
   )

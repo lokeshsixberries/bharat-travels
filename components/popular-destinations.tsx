@@ -69,7 +69,7 @@ export function PopularDestinations() {
                   {destination?.name}
                 </h3>
                 <p className="text-gray-600 text-sm mb-4">
-                  {(destination?.description || "").slice(0, 1000) + `...`}
+                  {(destination?.description || "").slice(0, 100) + `...`}
                 </p>
                 <div className="flex items-center">
                   <div className="flex">
