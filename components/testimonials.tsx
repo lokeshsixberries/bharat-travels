@@ -5,27 +5,27 @@ export function Testimonials() {
   const testimonials = [
     {
       id: 1,
-      name: "Sarah Johnson",
-      location: "United Kingdom",
-      image: "/placeholder.svg?height=200&width=200&query=woman tourist portrait",
+      name: "Lokesh Sharma",
+      location: "Ahmedabad, Gujarat",
+      image: "https://media.licdn.com/dms/image/v2/D4D03AQF-RN5OjqwAcg/profile-displayphoto-shrink_200_200/B4DZakYSGhHEAk-/0/1746514551888?e=2147483647&v=beta&t=qI4QH2PJ06ssVv-cUbePMR9cJyk34QU6hBfoLBXZhj4",
       quote:
         "Our trip to Rajasthan was absolutely magical! The driver was professional and knowledgeable, and the vehicle was comfortable. We visited all the major attractions with ease. Highly recommended!",
       rating: 5,
     },
     {
       id: 2,
-      name: "David Chen",
-      location: "Singapore",
-      image: "/placeholder.svg?height=200&width=200&query=asian man tourist portrait",
+      name: "Manoj Chandel",
+      location: "jaipur, Rajasthan",
+      image: "https://media.licdn.com/dms/image/v2/C5603AQFFGuaIUiZD6w/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1637302333635?e=1756339200&v=beta&t=XF75PpP2W8Fc7THDwUKYobtADaovGSTwh-QjA1ED524",
       quote:
         "The service was exceptional from start to finish. Our guide knew all the hidden gems of Rajasthan, and the vehicle was perfect for our family of six. We'll definitely use their services again!",
       rating: 5,
     },
     {
       id: 3,
-      name: "Priya Sharma",
-      location: "Mumbai, India",
-      image: "/placeholder.svg?height=200&width=200&query=indian woman portrait",
+      name: "Katie Bradshaw",
+      location: "London, UK",
+      image: "https://media.licdn.com/dms/image/v2/D4E03AQEH9sfAjKMs_A/profile-displayphoto-shrink_200_200/B4EZdp0wjoHYAY-/0/1749827128074?e=2147483647&v=beta&t=BMCjuUlyA27tFEGSjclwqKYwQGtsZQLOL71BKGvSQ50",
       quote:
         "As a solo female traveler, safety was my priority. The team made me feel secure throughout my journey. The driver was respectful and the vehicle was well-maintained. A wonderful experience!",
       rating: 5,

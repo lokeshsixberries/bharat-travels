@@ -1,8 +1,45 @@
+'use client';
+
 import Link from "next/link";
 import Image from "next/image";
 import { MapPin, Phone, Mail } from "lucide-react";
+import { useState } from "react";
+import { useToast } from "../hooks/use-toast";
+import { supabase } from "../lib/supabase/client";
 
 export function SiteFooter() {
+  const { toast } = useToast()
+  const [email, setEmail] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      setLoading(true);
+      const { data, error } = await supabase
+        .from('Newsletter')
+        .insert({ email: email,date:new Date().toISOString().split('T')[0] })
+      if (error) {
+        throw error
+      }
+      setLoading(false);
+    toast({
+      title: "Success",
+      description: "You have successfully subscribed to our newsletter.",
+      variant: "default",
+
+    })
+
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Something went wrong. Please try again.",
+        variant: "destructive",
+      })
+    }
+    setEmail('')
+  };
+
   return (
     <footer className="bg-gray-900 text-gray-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -152,15 +189,17 @@ export function SiteFooter() {
             </p>
             <form className="space-y-2">
               <input
+                onChange={(e) => setEmail(e.target.value)}
+                value={email} 
                 type="email"
                 placeholder="Your Email Address"
                 className="w-full px-4 py-2 rounded bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500"
               />
               <button
-                type="submit"
+                onClick={handleSubmit}
                 className="w-full px-4 py-2 bg-orange-600 text-white rounded hover:bg-orange-700 transition-colors"
               >
-                Subscribe
+                {loading ? "Loading..." : "Subscribe"}
               </button>
             </form>
             {/* <div className="flex space-x-4 mt-4">
