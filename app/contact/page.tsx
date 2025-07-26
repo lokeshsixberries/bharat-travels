@@ -56,9 +56,9 @@ export default function ContactPage() {
                   <div>
                     <h3 className="text-xl font-semibold mb-1">Our Office</h3>
                     <p className="text-gray-600">
-                      Ranakpur road, opposite reliance smart point,
+                      Main Bazar, Subhash Road, Falna
                       <br />
-                      Shastri Nagar, Falna, Rajasthan, 306116
+                      Rajasthan, 306116
                       <br />
                       India
                     </p>
@@ -218,7 +218,7 @@ export default function ContactPage() {
           </div>
           <div className="relative h-[400px] w-full rounded-lg overflow-hidden">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1385.2431681272153!2d73.23309269349329!3d25.242433259360986!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3942912d4793f58f%3A0xb2890c2089bc62cf!2sBharat%20travels!5e1!3m2!1sen!2sin!4v1750182783845!5m2!1sen!2sin"
+              src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3627.8408645560044!2d73.2350290753831!3d25.235450977686295!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjXCsDE0JzA3LjYiTiA3M8KwMTQnMTUuNCJF!5e1!3m2!1sen!2sin!4v1753517106239!5m2!1sen!2sin"
               width="100%"
               height="450"
               style={{ border: "0" }}
@@ -230,8 +230,8 @@ export default function ContactPage() {
               <div className="bg-white p-4 rounded-lg shadow-lg max-w-sm">
                 <h3 className="font-semibold mb-2">Bharat Travels, Falna</h3>
                 <p className="text-sm text-gray-600">
-                  Ranakpur road, opposite reliance smart point, Shastri Nagar,
-                  Falna, Rajasthan 306116
+                Main Bazar, Subhash Road, Falna,
+                Rajasthan 306116
                 </p>
               </div>
             </div>

@@ -14,7 +14,7 @@ const NAV_ITEMS = [
   { href: "/contact", label: "Contact Us" },
 ];
 
-const PHONE_NUMBER = "+91 98765 43210";
+const PHONE_NUMBER = "+91 9610846782";
 
 export function SiteHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

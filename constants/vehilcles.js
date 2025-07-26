@@ -1,5 +1,13 @@
 export const tourVehicles = [
   {
+    vehicleName: "Tempo Traveller",
+    vehicleType: "Van",
+    vehicleDesc:
+      "Best suited for large group tours covering Jaipur, Udaipur, Jaisalmer, and more.",
+    passengerCount: 12,
+    image: "https://carbike360-ae.s3.me-central-1.amazonaws.com/medium_force_traveller_2024_left_side_front_view_8e06902175.jpg",
+  },
+  {
     vehicleName: "Swift Dzire",
     vehicleType: "Sedan",
     vehicleDesc:
@@ -15,12 +23,5 @@ export const tourVehicles = [
     passengerCount: 6,
     image: "/vechiles/ertiga3.jpg",
   },
-  {
-    vehicleName: "Tempo Traveller",
-    vehicleType: "Van",
-    vehicleDesc:
-      "Best suited for large group tours covering Jaipur, Udaipur, Jaisalmer, and more.",
-    passengerCount: 12,
-    image: "/vechiles/tempo1.jpg",
-  },
+
 ];

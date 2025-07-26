@@ -28,14 +28,25 @@ export default function Home() {
             <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
               Discover the Magic of Rajasthan
             </h1>
-            <p className="mt-6 max-w-xl text-lg text-white/90">
+            <h1 className="text-4xl mt-3 font-bold tracking-tight text-orange-600 sm:text-5xl md:text-6xl">
+            With Bharat Travels, Falna
+            </h1>
+            <div className="rainbow mt-3 lg:hidden">
+            <h3 className="text-xl mt-1 font-bold tracking-tight text-black sm:text-5xl md:text-6xl">
+              Contact Us: <span className="text-orange-600">+91 9829507865</span>
+            </h3>
+            <h3 className="text-xl mt-3 font-bold tracking-tight text-black sm:text-5xl md:text-6xl">
+              Contact Us: <span className="text-orange-600">+91 9610846782</span>
+            </h3>
+            </div>
+            <p className="mt-3 max-w-xl text-lg text-white/90">
               Discover the essence of royal heritage, vibrant culture, and
               stunning landscapes with our premium vehicle rentals and expertly
               guided tours crafted for an unforgettable journey.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <Button
-                style={{ fontWeight: "600" }}
+                style={{ fontWeight: "700" }}
                 size="lg"
                 asChild
                 className="bg-orange-500"
@@ -45,7 +56,7 @@ export default function Home() {
               <Button
                 size="lg"
                 variant="outline"
-                style={{ fontWeight: "600" }}
+                style={{ fontWeight: "700" }}
                 className="bg-white text-orange-500"
                 asChild
               >
@@ -165,11 +176,10 @@ export default function Home() {
       </section>
 
       {/* Popular Destinations */}
+      <VehicleShowcase />
       <PopularDestinations />
 
       {/* Vehicle Showcase */}
-      <VehicleShowcase />
-
       {/* Enquiry Form */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-orange-50">
         <div className="max-w-7xl mx-auto">

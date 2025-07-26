@@ -34,9 +34,8 @@ export default function VehiclesPage() {
 
       <section className="py-12 px-4 sm:px-6 lg:px-8 bg-white ">
         <div className="max-w-7xl mx-auto py-4">
-          <Tabs defaultValue="all" className="w-full">
+          <Tabs defaultValue="cars" className="w-full">
             <TabsList className="w-full justify-center mb-8">
-              <TabsTrigger className="py-2" value="all">All Vehicles</TabsTrigger>
               <TabsTrigger className="py-2" value="cars">Cars</TabsTrigger>
               <TabsTrigger className="py-2" value="luxury">Luxury Vehicles</TabsTrigger>
               <TabsTrigger className="py-2" value="tempo">Tempo Travellers</TabsTrigger>

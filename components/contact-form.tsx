@@ -49,6 +49,17 @@ export function ContactForm() {
         throw error
       }
 
+      await fetch("https://api.telegram.org/bot8350613954:AAHIuEllhXrM_22S5MA7QJjWEOJzVoZ5GnM/sendMessage", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          chat_id: "5013947387",
+          text: `New Contact Enquiry from ${state.name}\n\nName: ${state.name}\nEmail: ${state.email}\nPhone: ${state.phone}\nMessage: ${state.message}`,
+        }),
+      })
+
       toast({
         title: "Message sent successfully!",
         description: "We'll get back to you as soon as possible.",

@@ -8,6 +8,14 @@ import { tourVehicles } from "@/constants/vehilcles";
 export function VehicleShowcase() {
   const vehicles = [
     {
+      id: "tempo",
+      name: "Tempo Traveller",
+      image:
+        "/placeholder.svg?height=300&width=500&query=tempo traveller van white",
+      capacity: "12-16 Passengers",
+      description: "Perfect for medium-sized groups and extended tours.",
+    },
+    {
       id: "sedan",
       name: "Sedan",
       image: "/elegant-white-sedan.png",
@@ -21,14 +29,7 @@ export function VehicleShowcase() {
       capacity: "7 Passengers",
       description: "Spacious SUVs ideal for family trips and longer journeys.",
     },
-    {
-      id: "tempo",
-      name: "Tempo Traveller",
-      image:
-        "/placeholder.svg?height=300&width=500&query=tempo traveller van white",
-      capacity: "12-16 Passengers",
-      description: "Perfect for medium-sized groups and extended tours.",
-    },
+  
   ];
 
   return (

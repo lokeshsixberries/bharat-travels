@@ -57,13 +57,13 @@ interface EnquiryFormData {
         throw error
       }
 
-      await fetch("https://api.telegram.org/bot8212234180:AAF5grR8Y368lRXiscxzsj3SYBKj11dW8bU/sendMessage", {
+      await fetch("https://api.telegram.org/bot8350613954:AAHIuEllhXrM_22S5MA7QJjWEOJzVoZ5GnM/sendMessage", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          chat_id: "1060120862",
+          chat_id: "5013947387",
           text: `New Enquiry from ${state.name}\n\nName: ${state.name}\nEmail: ${state.email}\nPhone: ${state.phone}\nPeople: ${state.people}\nDate: ${state.date}\nDuration: ${state.duration}\nDestination: ${state.destination}\nMessage: ${state.message}`,
         }),
       })
@@ -168,6 +168,8 @@ interface EnquiryFormData {
           defaultValue={destinationName}
           className={destinationName ? "bg-gray-50" : ""}
           readOnly={!!destinationName}
+          onChange={(e) => setState({ ...state, destination: e.target.value })}
+          value={state.destination}
         />
       </div>
       <div>
